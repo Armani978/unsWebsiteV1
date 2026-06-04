@@ -34,15 +34,17 @@ export default function EmployeeLoginPage({
         >
           <input name="next" type="hidden" value={nextPath} />
           <h2 className="text-2xl font-semibold">Employee Login</h2>
-          <label className="mt-6 block text-sm font-medium" htmlFor="email">
-            Employee email
+          <label className="mt-6 block text-sm font-medium" htmlFor="phone">
+            Employee phone number
           </label>
           <input
             className="mt-2 w-full rounded-md border border-zinc-300 px-3 py-3 outline-none focus:border-emerald-600"
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
+            id="phone"
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="9783946591"
             required
           />
           <label className="mt-4 block text-sm font-medium" htmlFor="code">
@@ -53,6 +55,7 @@ export default function EmployeeLoginPage({
             id="code"
             name="code"
             type="password"
+            inputMode="text"
             autoComplete="one-time-code"
             required
           />
@@ -60,7 +63,8 @@ export default function EmployeeLoginPage({
             Enter Employee Portal
           </button>
           <p className="mt-5 text-sm text-zinc-600">
-            QR sign-in and passkeys will attach to this employee-only flow.
+            First time here? Use your issued setup code. After that, this phone
+            number signs in with your personal code.
           </p>
         </form>
       </section>

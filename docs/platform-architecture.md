@@ -16,6 +16,9 @@ Customer credentials do not open the employee portal. Employee credentials do no
 - Middleware blocks `/employee/*` unless the session role is an employee role.
 - Middleware blocks customer account routes unless the session role is exactly `customer`.
 - Server helpers in `app/lib/auth/session.ts` provide `requireCustomer`, `requireEmployee`, and `requirePermission`.
+- Employee sign-in uses a phone number plus a sign-in code. First-time employees
+  claim their phone number with an issued setup code, then immediately create a
+  personal code for future sign-ins.
 
 ## Inventory Boundary
 

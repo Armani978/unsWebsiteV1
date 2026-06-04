@@ -115,6 +115,27 @@ model QRLoginToken {
   user User? @relation(fields: [userId], references: [id])
 }
 
+model EmployeeSetupCode {
+  id         String    @id @default(cuid())
+  codeHash   String    @unique
+  phone      String?
+  role       Role
+  label      String?
+  claimedBy  String?
+  claimedAt  DateTime?
+  expiresAt  DateTime?
+  createdAt  DateTime  @default(now())
+}
+
+model EmployeePhoneCredential {
+  id        String   @id @default(cuid())
+  userId    String
+  phone     String   @unique
+  codeHash  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Category {
   id        String   @id @default(cuid())
   name      String

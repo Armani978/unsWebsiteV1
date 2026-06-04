@@ -21,7 +21,11 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const role = request.cookies.get("uns_session_role")?.value;
 
-  if (pathname.startsWith("/employee") && pathname !== "/employee/login") {
+  if (
+    pathname.startsWith("/employee") &&
+    pathname !== "/employee/login" &&
+    pathname !== "/employee/create-code"
+  ) {
     if (!role || !employeeRoles.has(role)) {
       const loginUrl = new URL("/employee/login", request.url);
       loginUrl.searchParams.set("next", pathname);
