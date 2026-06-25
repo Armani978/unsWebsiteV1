@@ -1,11 +1,12 @@
 import Link from "next/link";
 
-export default function CustomerLoginPage({
+export default async function CustomerLoginPage({
   searchParams,
 }: {
-  searchParams?: { next?: string };
+  searchParams?: Promise<{ next?: string }>;
 }) {
-  const nextPath = searchParams?.next ?? "/account";
+  const params = await searchParams;
+  const nextPath = params?.next ?? "/account";
 
   return (
     <main className="min-h-screen bg-neutral-950 px-4 py-12 text-white">
@@ -51,12 +52,18 @@ export default function CustomerLoginPage({
             type="password"
             autoComplete="current-password"
           />
-          <button className="mt-6 w-full rounded-md bg-emerald-600 px-4 py-3 font-semibold text-white hover:bg-emerald-700">
+          <button
+            className="mt-6 w-full rounded-md bg-emerald-600 px-4 py-3 font-semibold text-white hover:bg-emerald-700"
+            type="submit"
+          >
             Sign In
           </button>
           <p className="mt-5 text-sm text-neutral-600">
             New customer?{" "}
-            <Link className="font-semibold text-emerald-700" href="/auth/register">
+            <Link
+              className="font-semibold text-emerald-700"
+              href="/auth/register"
+            >
               Create an account
             </Link>
           </p>

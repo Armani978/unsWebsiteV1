@@ -1,11 +1,12 @@
 import Link from "next/link";
 
-export default function CustomerRegisterPage({
+export default async function CustomerRegisterPage({
   searchParams,
 }: {
-  searchParams?: { next?: string };
+  searchParams?: Promise<{ next?: string }>;
 }) {
-  const nextPath = searchParams?.next ?? "/account";
+  const params = await searchParams;
+  const nextPath = params?.next ?? "/account";
 
   return (
     <main className="min-h-screen bg-neutral-950 px-4 py-12 text-white">
@@ -18,8 +19,9 @@ export default function CustomerRegisterPage({
             Create your customer account.
           </h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-neutral-300">
-            Customer accounts are separate from employee accounts and only unlock
-            shopping, order history, pickup tracking, reviews, and favorites.
+            Customer accounts are separate from employee accounts and only
+            unlock shopping, order history, pickup tracking, reviews, and
+            favorites.
           </p>
         </div>
 
@@ -60,7 +62,10 @@ export default function CustomerRegisterPage({
             type="password"
             autoComplete="new-password"
           />
-          <button className="mt-6 w-full rounded-md bg-emerald-600 px-4 py-3 font-semibold text-white hover:bg-emerald-700">
+          <button
+            className="mt-6 w-full rounded-md bg-emerald-600 px-4 py-3 font-semibold text-white hover:bg-emerald-700"
+            type="submit"
+          >
             Create Customer Account
           </button>
           <p className="mt-5 text-sm text-neutral-600">

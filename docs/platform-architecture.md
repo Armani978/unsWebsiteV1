@@ -26,7 +26,7 @@ Internal inventory is the platform source of truth. Clover, barcode scanning, ma
 
 ## Clover Boundary
 
-Clover sync is feature-flagged with `CLOVER_SYNC_ENABLED`. The app can build and test internal inventory, orders, and pickup flows before Clover approval.
+Clover sync is feature-flagged with `CLOVER_SYNC_ENABLED`. This is a website-to-merchant-account integration, not a public Clover App Market product. The platform can build and test internal inventory, orders, and pickup flows before live Clover writes are enabled.
 
 ## AI Boundary
 

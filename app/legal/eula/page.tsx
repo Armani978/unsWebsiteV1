@@ -18,7 +18,7 @@ const sections = [
   {
     title: "3. Clover Connection and Data",
     body: [
-      "The merchant authorizes the application to access Clover data only within the permissions approved during installation. Clover authorization tokens are encrypted before storage.",
+      "The merchant authorizes this website integration to access Clover data only within the permissions approved for the connected Clover merchant account. Clover authorization tokens are encrypted before storage.",
       "The merchant may request disconnection of the Clover account. Information processing is further described in the UNSV Inventory Privacy Policy.",
     ],
   },

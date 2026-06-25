@@ -102,7 +102,8 @@ export default function OpsReadinessPanel() {
       <CardContent className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="text-sm text-muted-foreground">
-            Live check for Medusa, Clover, imports, and employee login setup.
+            Live check for the website backend, Clover merchant connection,
+            imports, and employee login setup.
           </p>
           <Button
             type="button"
@@ -139,7 +140,7 @@ export default function OpsReadinessPanel() {
 
             <div className="rounded-lg border p-3">
               <div className="flex flex-wrap gap-2">
-                {statusBadge(status.clover.configured, "Clover creds")}
+                {statusBadge(status.clover.configured, "Clover merchant")}
                 <Badge variant="outline">{status.clover.env}</Badge>
                 <Badge
                   variant={
@@ -153,8 +154,8 @@ export default function OpsReadinessPanel() {
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 {status.clover.configured
-                  ? "Clover credentials are present. Keep writes locked until final testing."
-                  : `Missing: ${status.clover.missing.join(", ")}`}
+                  ? "Clover merchant credentials are present for this website. Keep writes locked until final testing."
+                  : `Website connection missing: ${status.clover.missing.join(", ")}`}
               </p>
             </div>
 

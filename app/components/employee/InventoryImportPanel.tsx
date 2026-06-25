@@ -203,8 +203,8 @@ export default function InventoryImportPanel() {
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="rounded-lg border border-yellow-300/40 bg-yellow-50 px-3 py-2 text-sm text-zinc-800">
-          Upload daily XLSX or CSV files here. Clover remains the source of
-          truth; this builds an import snapshot and a dry-run Clover sync plan.
+          Upload daily XLSX or CSV files here. This website compares the file
+          against your Clover merchant inventory and builds a dry-run sync plan.
         </div>
 
         <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
@@ -257,7 +257,7 @@ export default function InventoryImportPanel() {
               ) : (
                 <RefreshCw className="size-4" />
               )}
-              Clover Dry Run
+              Website Clover Dry Run
             </Button>
           </div>
         </div>

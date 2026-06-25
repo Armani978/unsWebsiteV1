@@ -237,6 +237,10 @@ export function SiteNavbar() {
     );
   };
 
+  if (pathname.startsWith("/employee/") && pathname !== "/employee/login") {
+    return null;
+  }
+
   return (
     <>
       <header className="dark sticky top-0 z-50 flex h-[72px] shrink-0 items-center justify-center px-3 text-white">
@@ -244,7 +248,7 @@ export function SiteNavbar() {
           aria-label="Site navigation"
           className="flex h-[54px] w-full max-w-6xl items-center gap-3 rounded-2xl border border-white/[0.08] bg-[#131514]/90 px-3 shadow-[0_12px_40px_rgba(0,0,0,0.34)] backdrop-blur-xl sm:px-4"
         >
-            <Link href="/shop" className="flex min-w-0 items-center gap-2">
+          <Link href="/shop" className="flex min-w-0 items-center gap-2">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-yellow-300">
               <Image
                 src="/up-n-smoke-logo.png"
@@ -266,7 +270,10 @@ export function SiteNavbar() {
             <Link href="/cart" className="transition-colors hover:text-white">
               Cart
             </Link>
-            <Link href="/auth/login" className="transition-colors hover:text-white">
+            <Link
+              href="/auth/login"
+              className="transition-colors hover:text-white"
+            >
               Login
             </Link>
             <Link

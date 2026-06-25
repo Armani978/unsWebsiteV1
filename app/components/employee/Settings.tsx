@@ -51,8 +51,8 @@ export default function Settings() {
       );
       setCloverDetails(
         result.writesEnabled
-          ? "Live Clover writes are enabled."
-          : "Live Clover writes are locked. Scanner submissions stay in dry-run mode.",
+          ? "Live Clover writes are enabled for this website connection."
+          : "Live Clover writes are locked. Website scanner submissions stay in dry-run mode.",
       );
     } catch (error) {
       setCloverStatus(
@@ -140,13 +140,16 @@ export default function Settings() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Clover API</CardTitle>
+          <CardTitle>Clover Website Connection</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <p className="text-sm font-medium">Server-side credentials</p>
+            <p className="text-sm font-medium">
+              Server-side website credentials
+            </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Inventory credentials and OAuth secrets remain server-side.
+              This connects the Up N Smoke website to your Clover merchant
+              account. Credentials and OAuth secrets remain server-side.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -165,7 +168,7 @@ export default function Settings() {
                 window.location.href = "/api/clover/connect";
               }}
             >
-              Connect Clover Shop
+              Connect Website to Clover
             </Button>
           </div>
           {cloverStatus && (

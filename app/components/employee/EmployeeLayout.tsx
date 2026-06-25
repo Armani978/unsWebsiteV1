@@ -118,7 +118,7 @@ export default function EmployeeLayout({
   );
 
   return (
-    <div className="dark flex h-[calc(100vh-4.5rem)] overflow-hidden bg-[#080a09] text-zinc-100">
+    <div className="dark flex h-screen overflow-hidden bg-[#080a09] text-zinc-100">
       <aside className="relative hidden w-64 shrink-0 overflow-hidden border-r border-white/10 bg-[#101210] lg:flex lg:flex-col">
         <GridScanOverlay gridSize={54} scanSpeed={16} />
         {sidebar}

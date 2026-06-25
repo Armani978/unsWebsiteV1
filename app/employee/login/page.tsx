@@ -1,12 +1,13 @@
 import { Fingerprint, KeyRound, ShieldCheck, Wrench } from "lucide-react";
 import { isEmployeeDevLoginEnabled } from "../../lib/auth/employee-oauth";
 
-export default function EmployeeLoginPage({
+export default async function EmployeeLoginPage({
   searchParams,
 }: {
-  searchParams?: { next?: string };
+  searchParams?: Promise<{ next?: string }>;
 }) {
-  const nextPath = searchParams?.next ?? "/employee/dashboard";
+  const params = await searchParams;
+  const nextPath = params?.next ?? "/employee/dashboard";
   const encodedNext = encodeURIComponent(nextPath);
   const showDevLogin = isEmployeeDevLoginEnabled();
 
@@ -25,8 +26,8 @@ export default function EmployeeLoginPage({
           </h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-zinc-300">
             Employee access is separate from customer accounts. Use Apple,
-            Google, or a registered passkey to reach inventory, Clover sync,
-            pickup tools, and dashboard workflows.
+            Google, or a registered passkey to manage website inventory, Clover
+            connection checks, pickup tools, and dashboard workflows.
           </p>
         </div>
 
