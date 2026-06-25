@@ -7,6 +7,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import { Switch } from "../ui/switch";
+import InventoryImportPanel from "./InventoryImportPanel";
+import OpsReadinessPanel from "./OpsReadinessPanel";
 
 export default function Settings() {
   const [storeName, setStoreName] = useState("EMBER Smoke Shop");
@@ -64,7 +66,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="p-6 space-y-6 max-w-2xl mx-auto">
+    <div className="p-6 space-y-6 max-w-4xl mx-auto">
       <div>
         <h1>Settings</h1>
         <p className="text-sm text-muted-foreground mt-0.5">
@@ -178,6 +180,10 @@ export default function Settings() {
           )}
         </CardContent>
       </Card>
+
+      <InventoryImportPanel />
+
+      <OpsReadinessPanel />
 
       <div className="flex justify-end">
         <Button onClick={save}>{saved ? "Saved!" : "Save Settings"}</Button>

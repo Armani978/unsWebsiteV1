@@ -1,0 +1,4 @@
+Name,SKU,Barcode,Category,Brand,Description,Price,Cost,Quantity,Tags,Vendor,Clover Item ID,THCA %,CBD %,Strain Type,Batch ID
+UPN Sample Disposable,UNS-VAPE-001,123456789012,Vapes,UP N Smoke,Sample disposable vape for dry-run testing,24.99,12.5,10,Disposable Vape;New Arrival,Test Vendor,,,,,
+UPN Sample Glass Hand Pipe,UNS-GLASS-001,123456789013,Glass,UP N Smoke,Sample glass item for dry-run testing,19.99,8,4,Glass;Staff Pick,Test Vendor,,,,,
+UPN Sample Papers,UNS-PAPER-001,123456789014,Papers / Wraps,UP N Smoke,Sample papers for dry-run testing,2.99,1,32,Papers,Test Vendor,,,,,
