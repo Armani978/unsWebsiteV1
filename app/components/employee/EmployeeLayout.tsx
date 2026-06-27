@@ -4,6 +4,7 @@ import {
   Flame,
   LayoutDashboard,
   Package,
+  Palette,
   Receipt,
   ScanBarcode,
   Settings,
@@ -22,6 +23,7 @@ const NAV = [
   { to: "/employee/pos", label: "POS System", icon: ShoppingCart },
   { to: "/employee/scanner", label: "Barcode Scanner", icon: ScanBarcode },
   { to: "/employee/inventory", label: "Inventory", icon: Package },
+  { to: "/employee/ui-schemes", label: "UI Schemes", icon: Palette },
   { to: "/employee/sales", label: "Sales History", icon: Receipt },
   { to: "/employee/customers", label: "Customers", icon: Users },
 ] as const;
