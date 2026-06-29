@@ -228,13 +228,13 @@ export function SiteNavbar() {
 
   return (
     <>
-      <header className="dark sticky top-0 z-50 flex h-[72px] shrink-0 items-center justify-center px-3 text-white">
+      <header className="dark pointer-events-none fixed inset-x-0 top-3 z-50 flex items-center justify-center px-3 text-white">
         <nav
           aria-label="Site navigation"
           className={cn(
-            "flex h-[54px] w-full max-w-6xl items-center gap-3 rounded-2xl border px-3 backdrop-blur-xl sm:px-4",
+            "pointer-events-auto flex h-[54px] w-full max-w-6xl items-center gap-3 rounded-2xl border px-3 backdrop-blur-xl sm:px-4",
             isStorefront
-              ? "border-stone-200 bg-[#fbfaf7]/92 text-stone-950 shadow-[0_12px_40px_rgba(28,25,23,0.12)]"
+              ? "border-stone-200 bg-[#fbfaf7]/92 text-stone-950 shadow-[0_18px_70px_rgba(28,25,23,0.18)]"
               : "border-white/[0.08] bg-[#131514]/90 text-white shadow-[0_12px_40px_rgba(0,0,0,0.34)]",
           )}
         >
@@ -349,6 +349,7 @@ export function SiteNavbar() {
           </button>
         </nav>
       </header>
+      <div aria-hidden="true" className="h-[78px] shrink-0" />
 
       <AnimatePresence>
         {menuOpen && (
