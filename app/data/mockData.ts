@@ -1,11 +1,77 @@
 import type { Customer, DailyRevenue, Product, Sale } from "./types";
 
 const IMG = {
-  v1: "https://images.unsplash.com/photo-1530745342582-0795f23ec976?w=600&h=600&fit=crop",
-  v2: "https://images.unsplash.com/photo-1701278109202-ad455b0506ac?w=600&h=600&fit=crop",
-  v3: "https://images.unsplash.com/photo-1699631559529-83389014055c?w=600&h=600&fit=crop",
-  v4: "https://images.unsplash.com/photo-1618588488736-c9419743dd12?w=600&h=600&fit=crop",
-  s1: "https://images.unsplash.com/photo-1618588487745-2d46620cabc5?w=600&h=600&fit=crop",
+  smokNord5:
+    "https://d2svuhg8jeu25r.cloudfront.net/catalog/product/s/m/smok_-_nord_5_-_pod_kit_-_all_colors_2.png",
+  elfBarBc5000: "https://dbh4s5ja0maaw.cloudfront.net/products/bc5000/1.jpg",
+  lostVapeUrsa:
+    "https://lostvape.com/wp-content/uploads/2023/09/Ursa-NANO.webp",
+  vuseAlto:
+    "https://www.electrictobacconist.com/image-factory/86e18ea2768bd28f15155660ef273183ea2f0c5c~500x500:contain/images/combinations/o94od1dPgFtEAoHUwqXxO0eG5MClWhLcI8irbAO4.jpg",
+  glassBeaker:
+    "https://images.unsplash.com/photo-1618588487745-2d46620cabc5?w=700&h=700&fit=crop",
+  spoonPipe:
+    "https://images.unsplash.com/photo-1530745342582-0795f23ec976?w=700&h=700&fit=crop",
+  rawPapers:
+    "https://rawpaper-media.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/01/31005058/Raw-Social-Graphic.png",
+  rawCones:
+    "https://www.tedtobacco.com/media/catalog/product/w/r/wra1093.jpg?width=700&height=700&store=default&image-type=image",
+  zigZag:
+    "https://zigzag.com/cdn/shop/files/ultra_thin_1_1_4_single.webp?v=1733866378",
+  clipper:
+    "https://i5.walmartimages.com/seo/Clipper-Metal-Lighter-Iconic-Premium-Refillable-Butane-Lighter-Replace-Butane-Flint-Spark-Wheel-Unlimited-Lights-Long-Lasting-Durable-Metal-Body-1-Pa_10dbad43-a373-4f51-8f6f-5989b1fb2c58.401605d6eab105190abbb640b74b7872.jpeg",
+  blazer:
+    "https://i5.walmartimages.com/seo/Blazer-GT8000-Big-Shot-Butane-Torch_40330d27-7032-42cd-9cf3-dafd99a241d4.17cd7cc790867118c8c404356097529e.jpeg",
+  santaCruz:
+    "https://santacruzshredder.com/cdn/shop/files/Alum-small-4pc-glossypurple-SM4PP1_600x.jpg?v=1771366674",
+  rawTray:
+    "https://store.nvsglassworks.com/wp-content/uploads/2023/01/RAW-Large-Rolling-Tray2.jpg",
+  hookah:
+    "https://images.unsplash.com/photo-1618588488736-c9419743dd12?w=700&h=700&fit=crop",
+  cocoNara:
+    "https://www.coconaraonline.com/cdn/shop/products/CN120_1x_2048_1024x1024.jpg?v=1496465122",
+  cbdistillery:
+    "https://www.cbdsdeals.com/cdn/shop/files/1000mgFullSpectrumCBDOilTincture.webp?v=1741067056&width=1200",
+  cbdLiving:
+    "https://cbdliving.com/cdn/shop/collections/156348219489.jpg?v=1656376069",
+  backwoods:
+    "https://backwoodscigarshop.com/wp-content/uploads/2026/02/backwoods-honey-bourbon-cigars-8-packs-of-5-237.webp",
+  razTnBlue:
+    "https://razvapedirect.com/cdn/shop/files/BlueRazIceRAZTN9000DisposableVape.webp?v=1734541799",
+  razDcMiami:
+    "https://razvapedirect.com/cdn/shop/files/MiamiMintRAZDC25000DisposableVape.webp?v=1734454074",
+  razDcStrawberry:
+    "https://razofficial.com/wp-content/uploads/2024/06/Strawberry-Orange-Tang-RAZ-Vape-DC25000.jpg",
+  geekSourApple:
+    "https://geek-bar.org/wp-content/uploads/2025/06/Sour-Apple-Ice-Geek-Bar-Pulse-X-25K.webp",
+  geekMango:
+    "https://geekbarpulse.com/wp-content/uploads/2024/05/Geek-Bar-Pulse-Mexico-Mango.webp",
+  geekSkyview:
+    "https://oss.geekbar.com/uploads/upload/upload/202606181018255454_600X600.jpg",
+  sweetzWatermelon:
+    "https://www.hellosweetz.com/cdn/shop/files/433-watermelon_1200x_9713c18a-c7fe-4b56-977f-b3c85403c45a.png?v=1684948133",
+  thcaFlower:
+    "https://images.unsplash.com/photo-1603909223429-69bb7101f420?w=700&h=700&fit=crop",
+  thcaPreRoll:
+    "https://images.unsplash.com/photo-1603909223429-69bb7101f420?w=700&h=700&fit=crop",
+  thcaVape:
+    "https://images.unsplash.com/photo-1701278109202-ad455b0506ac?w=700&h=700&fit=crop",
+  thcaGummies:
+    "https://www.hellosweetz.com/cdn/shop/files/433-watermelon_1200x_9713c18a-c7fe-4b56-977f-b3c85403c45a.png?v=1684948133",
+  hempWraps:
+    "https://rawpaper-media.s3.us-west-2.amazonaws.com/wp-content/uploads/2023/01/31005058/Raw-Social-Graphic.png",
+  hempWick:
+    "https://images.unsplash.com/photo-1618588487745-2d46620cabc5?w=700&h=700&fit=crop",
+  razELiquid:
+    "https://images.unsplash.com/photo-1701278109202-ad455b0506ac?w=700&h=700&fit=crop",
+  crave:
+    "https://images.unsplash.com/photo-1701278109202-ad455b0506ac?w=700&h=700&fit=crop",
+  lostMary:
+    "https://images.unsplash.com/photo-1699631559529-83389014055c?w=700&h=700&fit=crop",
+  flum: "https://images.unsplash.com/photo-1699631559529-83389014055c?w=700&h=700&fit=crop",
+  breeze:
+    "https://images.unsplash.com/photo-1701278109202-ad455b0506ac?w=700&h=700&fit=crop",
+  fume: "https://images.unsplash.com/photo-1699631559529-83389014055c?w=700&h=700&fit=crop",
 };
 
 export const INITIAL_PRODUCTS: Product[] = [
@@ -19,7 +85,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 23,
     description:
       "The SMOK Nord 5 features adjustable wattage up to 80W, 2000mAh battery, and dual coil compatibility. Perfect for both MTL and DL vaping. Includes 0.4Ω mesh coil and 0.6Ω regular coil.",
-    image: IMG.v1,
+    image: IMG.smokNord5,
     rating: 4.5,
     reviewCount: 128,
     featured: true,
@@ -60,7 +126,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 4,
     description:
       "Up to 5000 puffs with rechargeable 650mAh battery. Available in 40+ flavors with 5% nicotine salt formula. USB-C rechargeable.",
-    image: IMG.v2,
+    image: IMG.elfBarBc5000,
     rating: 4.7,
     reviewCount: 342,
     featured: true,
@@ -93,7 +159,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 15,
     description:
       "Ultra-compact pod system with 800mAh battery. Auto-draw and button activation. Ships with two 0.8Ω and 1.0Ω mesh pods.",
-    image: IMG.v3,
+    image: IMG.lostVapeUrsa,
     rating: 4.3,
     reviewCount: 87,
     barcode: "810052681235",
@@ -117,7 +183,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 31,
     description:
       "Sleek magnetic pod system with 350mAh battery. Pods available in multiple flavors and nicotine strengths (1.8%, 2.4%, 5%).",
-    image: IMG.v4,
+    image: IMG.vuseAlto,
     rating: 4.1,
     reviewCount: 203,
     barcode: "028000471895",
@@ -141,7 +207,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 8,
     description:
       "Scientific-grade borosilicate glass beaker bong with ice catcher, diffused downstem, and 14mm female joint. 5mm thick glass walls for durability.",
-    image: IMG.s1,
+    image: IMG.glassBeaker,
     rating: 4.8,
     reviewCount: 56,
     featured: true,
@@ -167,7 +233,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 0,
     description:
       "Classic borosilicate glass spoon pipe with deep bowl and carb hole. Sturdy and easy to clean. Available in assorted colors.",
-    image: IMG.v1,
+    image: IMG.spoonPipe,
     rating: 4.2,
     reviewCount: 143,
     barcode: "000000000002",
@@ -191,7 +257,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 150,
     description:
       "Unbleached natural brown rolling papers made from unrefined plant fiber. 110mm king size, 32 leaves per booklet. Watermarked criss-cross pattern.",
-    image: IMG.v2,
+    image: IMG.rawPapers,
     rating: 4.9,
     reviewCount: 521,
     featured: true,
@@ -216,7 +282,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 87,
     description:
       "Pre-rolled cones made with RAW's signature unbleached paper. Includes filling tube. 83mm length, standard 1¼\" size.",
-    image: IMG.v3,
+    image: IMG.rawCones,
     rating: 4.7,
     reviewCount: 289,
     barcode: "716165177234",
@@ -242,7 +308,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "071661002205",
     description:
       "Classic orange Zig-Zag papers in ultra thin format. 78mm, 32 papers per booklet. Slow-burning French paper.",
-    image: IMG.v4,
+    image: IMG.zigZag,
     rating: 4.5,
     reviewCount: 412,
     reviews: [],
@@ -258,7 +324,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "8414346126050",
     description:
       "Refillable butane lighter with removable and replaceable flint system. Child-resistant. Assorted colors. Eco-friendly and sustainable.",
-    image: IMG.s1,
+    image: IMG.clipper,
     rating: 4.4,
     reviewCount: 186,
     reviews: [],
@@ -273,7 +339,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 12,
     description:
       "Powerful butane torch with adjustable flame up to 2500°F. Anti-flare technology, single-hand operation, and safety lock. 35-minute burn time.",
-    image: IMG.v1,
+    image: IMG.blazer,
     rating: 4.6,
     reviewCount: 74,
     featured: true,
@@ -290,7 +356,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 17,
     description:
       '2.2" anodized aluminum 4-piece grinder with kief catcher. Medical-grade anodized aluminum, thread-safe lid design. Extremely sharp "fluffy" grind.',
-    image: IMG.v2,
+    image: IMG.santaCruz,
     rating: 4.9,
     reviewCount: 234,
     featured: true,
@@ -308,7 +374,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "716165179009",
     description:
       'Large metal rolling tray with curved edges and branded RAW artwork. 13.5" × 11". Compact enough for storage.',
-    image: IMG.v3,
+    image: IMG.rawTray,
     rating: 4.6,
     reviewCount: 158,
     reviews: [],
@@ -324,7 +390,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "000000000003",
     description:
       'Authentic Egyptian-made hookah with stainless steel stem, traditional clay bowl, silicone hose, and tray. 34" tall with tri-metal coloring.',
-    image: IMG.v4,
+    image: IMG.hookah,
     rating: 4.7,
     reviewCount: 67,
     reviews: [],
@@ -340,7 +406,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "000000000004",
     description:
       "100% natural coconut shell charcoal. Odorless and tasteless. 60–90 minute burn time per piece. 120 flat pieces per box.",
-    image: IMG.s1,
+    image: IMG.cocoNara,
     rating: 4.8,
     reviewCount: 312,
     reviews: [],
@@ -355,7 +421,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stock: 22,
     description:
       "Full spectrum hemp extract in MCT coconut oil. 33mg CBD per 1mL serving, 30 servings. Third-party lab tested. <0.3% THC. Natural flavor.",
-    image: IMG.v1,
+    image: IMG.cbdistillery,
     rating: 4.5,
     reviewCount: 147,
     featured: true,
@@ -373,7 +439,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "859656005030",
     description:
       "Nano-amplified CBD gummies for maximum bioavailability. Each gummy contains 25mg CBD. Mixed berry flavor. Vegan, gluten-free, non-GMO.",
-    image: IMG.v2,
+    image: IMG.cbdLiving,
     rating: 4.3,
     reviewCount: 89,
     reviews: [],
@@ -389,7 +455,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "014100441199",
     description:
       "All-natural Connecticut broad-leaf tobacco cigars with smooth Honey Bourbon flavoring. No additives. 8 cigars per pack. Resealable pouch.",
-    image: IMG.v3,
+    image: IMG.backwoods,
     rating: 4.4,
     reviewCount: 201,
     reviews: [],
@@ -405,7 +471,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100019",
     description:
       "RAZ disposable placeholder in Blue Razz Ice with a rechargeable body, bold fruit profile, and counter-ready packaging for pickup orders.",
-    image: IMG.v2,
+    image: IMG.razTnBlue,
     rating: 4.8,
     reviewCount: 214,
     featured: true,
@@ -422,7 +488,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100020",
     description:
       "RAZ high-puff disposable placeholder with Miami Mint flavor notes, rechargeable design, and quick-scan SKU for the register.",
-    image: IMG.v3,
+    image: IMG.razDcMiami,
     rating: 4.7,
     reviewCount: 176,
     reviews: [],
@@ -438,7 +504,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100021",
     description:
       "Sweet citrus RAZ placeholder disposable for customers looking for a bright fruit flavor and long-session device format.",
-    image: IMG.v4,
+    image: IMG.razDcStrawberry,
     rating: 4.6,
     reviewCount: 143,
     reviews: [],
@@ -454,7 +520,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100022",
     description:
       "Geek Bar Pulse X placeholder disposable with sour apple and cool finish flavor notes. Built as a premium shelf item for fast pickup.",
-    image: IMG.v1,
+    image: IMG.geekSourApple,
     rating: 4.8,
     reviewCount: 305,
     featured: true,
@@ -471,7 +537,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100023",
     description:
       "Geek Bar placeholder with mango-forward flavor notes, rechargeable device format, and clean display-card placement.",
-    image: IMG.v2,
+    image: IMG.geekMango,
     rating: 4.7,
     reviewCount: 228,
     reviews: [],
@@ -487,7 +553,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100024",
     description:
       "Geek Bar Skyview placeholder disposable with blue mint flavor notes and premium display packaging for the vape shelf.",
-    image: IMG.v3,
+    image: IMG.geekSkyview,
     rating: 4.5,
     reviewCount: 119,
     reviews: [],
@@ -503,7 +569,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100025",
     description:
       "Sweetz hemp gummy placeholder with watermelon taffy flavor. Shelf-ready packaging and simple pickup-friendly item details.",
-    image: IMG.s1,
+    image: IMG.sweetzWatermelon,
     rating: 4.6,
     reviewCount: 98,
     reviews: [],
@@ -519,7 +585,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100026",
     description:
       "Sweetz hemp gummy placeholder with blue raspberry flavor, compact jar format, and clear SKU labeling for inventory flow.",
-    image: IMG.v4,
+    image: IMG.sweetzWatermelon,
     rating: 4.7,
     reviewCount: 126,
     reviews: [],
@@ -535,7 +601,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100027",
     description:
       "Sweetz peach ring hemp gummy placeholder for the CBD and hemp shelf. Fruity flavor profile with pickup availability.",
-    image: IMG.v2,
+    image: IMG.sweetzWatermelon,
     rating: 4.5,
     reviewCount: 84,
     reviews: [],
@@ -551,7 +617,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100028",
     description:
       "THCA hemp flower placeholder in Blue Dream profile. Displayed as an in-store exclusive with stock checked for pickup.",
-    image: IMG.s1,
+    image: IMG.thcaFlower,
     rating: 4.8,
     reviewCount: 152,
     featured: true,
@@ -568,7 +634,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100029",
     description:
       "THCA hemp flower placeholder with Lemon Cherry Gelato flavor notes and premium shelf placement for pickup orders.",
-    image: IMG.v1,
+    image: IMG.thcaFlower,
     rating: 4.9,
     reviewCount: 188,
     featured: true,
@@ -585,7 +651,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100030",
     description:
       "Larger THCA hemp flower placeholder with Ice Cream Cake flavor notes, premium jar format, and pickup-friendly stock tracking.",
-    image: IMG.v2,
+    image: IMG.thcaFlower,
     rating: 4.7,
     reviewCount: 104,
     reviews: [],
@@ -601,7 +667,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100031",
     description:
       "THCA hemp pre-roll placeholder in Grape Gas profile. Two-pack tube format for a quick add-on at checkout.",
-    image: IMG.v3,
+    image: IMG.thcaPreRoll,
     rating: 4.6,
     reviewCount: 97,
     reviews: [],
@@ -617,7 +683,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100032",
     description:
       "Infused THCA hemp pre-roll placeholder with Pineapple Express flavor notes and single-tube shelf display.",
-    image: IMG.v4,
+    image: IMG.thcaPreRoll,
     rating: 4.5,
     reviewCount: 121,
     reviews: [],
@@ -633,7 +699,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100033",
     description:
       "THCA hemp disposable placeholder with Strawberry Kush flavor notes, rechargeable-style device format, and premium display slot.",
-    image: IMG.v1,
+    image: IMG.thcaVape,
     rating: 4.7,
     reviewCount: 88,
     reviews: [],
@@ -649,7 +715,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100034",
     description:
       "THCA hemp cartridge placeholder with Maui Wowie flavor notes. Listed for inventory presentation and pickup availability.",
-    image: IMG.v2,
+    image: IMG.thcaVape,
     rating: 4.6,
     reviewCount: 76,
     reviews: [],
@@ -665,7 +731,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100035",
     description:
       "THCA hemp concentrate placeholder in Wedding Cake profile with small jar packaging and premium shelf placement.",
-    image: IMG.v3,
+    image: IMG.thcaFlower,
     rating: 4.8,
     reviewCount: 63,
     reviews: [],
@@ -681,7 +747,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100036",
     description:
       "THCA hemp gummy placeholder with sour watermelon flavor, resealable package format, and pickup-focused product details.",
-    image: IMG.v4,
+    image: IMG.thcaGummies,
     rating: 4.4,
     reviewCount: 72,
     reviews: [],
@@ -697,7 +763,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100037",
     description:
       "Hemp wrap placeholder with Honey Fusion flavor notes. Two-pack format for the papers, wraps, and hemp add-on shelf.",
-    image: IMG.s1,
+    image: IMG.hempWraps,
     rating: 4.4,
     reviewCount: 167,
     reviews: [],
@@ -713,7 +779,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100038",
     description:
       "Hemp wrap placeholder with Russian Cream flavor notes and simple counter add-on pricing.",
-    image: IMG.v1,
+    image: IMG.hempWraps,
     rating: 4.5,
     reviewCount: 142,
     reviews: [],
@@ -729,7 +795,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100039",
     description:
       "Natural hemp wick spool placeholder for customers building out a cleaner accessories kit with glass and papers.",
-    image: IMG.v2,
+    image: IMG.hempWick,
     rating: 4.6,
     reviewCount: 93,
     reviews: [],
@@ -745,7 +811,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100040",
     description:
       "Pocket-size hemp wick placeholder for grab-and-go checkout placement beside lighters and wraps.",
-    image: IMG.v3,
+    image: IMG.hempWick,
     rating: 4.3,
     reviewCount: 61,
     reviews: [],
@@ -761,7 +827,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100041",
     description:
       "RAZ e-liquid placeholder with Strawberry Lolly flavor notes. Stocked as a bottle-format option for refill customers.",
-    image: IMG.v4,
+    image: IMG.razELiquid,
     rating: 4.5,
     reviewCount: 118,
     reviews: [],
@@ -777,7 +843,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100042",
     description:
       "RAZ e-liquid placeholder with tropical fruit flavor notes and standard bottle-format shelf placement.",
-    image: IMG.v1,
+    image: IMG.razELiquid,
     rating: 4.6,
     reviewCount: 133,
     reviews: [],
@@ -793,7 +859,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100043",
     description:
       "Geek Bar Pulse X placeholder disposable with frozen watermelon flavor notes and premium vape shelf placement.",
-    image: IMG.v2,
+    image: IMG.geekSourApple,
     rating: 4.8,
     reviewCount: 241,
     reviews: [],
@@ -809,7 +875,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100044",
     description:
       "Sweetz hemp gummy placeholder with strawberry flavor notes and pickup-ready stock display.",
-    image: IMG.v3,
+    image: IMG.sweetzWatermelon,
     rating: 4.6,
     reviewCount: 101,
     reviews: [],
@@ -825,7 +891,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100045",
     description:
       "Sweetz hemp gummy placeholder with mango flavor notes and clean shelf labeling for CBD and hemp shoppers.",
-    image: IMG.v4,
+    image: IMG.sweetzWatermelon,
     rating: 4.5,
     reviewCount: 87,
     reviews: [],
@@ -841,7 +907,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100046",
     description:
       "Crave disposable placeholder with Blue Razz Lemonade flavor notes, rechargeable-style shelf format, and quick pickup availability.",
-    image: IMG.v1,
+    image: IMG.crave,
     rating: 4.8,
     reviewCount: 232,
     featured: true,
@@ -858,7 +924,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100047",
     description:
       "Crave disposable placeholder with frozen strawberry flavor notes and a high-visibility spot on the disposable vape shelf.",
-    image: IMG.v2,
+    image: IMG.crave,
     rating: 4.7,
     reviewCount: 189,
     reviews: [],
@@ -874,7 +940,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100048",
     description:
       "Crave Max disposable placeholder with watermelon bubblegum flavor notes and counter-ready inventory labeling.",
-    image: IMG.v3,
+    image: IMG.crave,
     rating: 4.6,
     reviewCount: 156,
     reviews: [],
@@ -890,7 +956,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100049",
     description:
       "Lost Mary disposable placeholder with Miami Mint flavor notes, premium display packaging, and pickup-friendly stock tracking.",
-    image: IMG.v4,
+    image: IMG.lostMary,
     rating: 4.7,
     reviewCount: 211,
     reviews: [],
@@ -906,7 +972,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100050",
     description:
       "Lost Mary disposable placeholder with blue fruit flavor notes and a clean shelf-card presence for the vape wall.",
-    image: IMG.s1,
+    image: IMG.lostMary,
     rating: 4.6,
     reviewCount: 141,
     reviews: [],
@@ -922,7 +988,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100051",
     description:
       "Flum Pebble disposable placeholder in Clear flavor profile for customers looking for a lighter, simple disposable option.",
-    image: IMG.v1,
+    image: IMG.flum,
     rating: 4.4,
     reviewCount: 103,
     reviews: [],
@@ -938,7 +1004,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100052",
     description:
       "Flum Pebble disposable placeholder with strawberry mango flavor notes and quick-scan inventory details.",
-    image: IMG.v2,
+    image: IMG.flum,
     rating: 4.5,
     reviewCount: 128,
     reviews: [],
@@ -954,7 +1020,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100053",
     description:
       "Breeze Pro disposable placeholder with banana mint flavor notes and compact grab-and-go shelf placement.",
-    image: IMG.v3,
+    image: IMG.breeze,
     rating: 4.4,
     reviewCount: 117,
     reviews: [],
@@ -970,7 +1036,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100054",
     description:
       "Breeze Pro disposable placeholder with blueberry lemon flavor notes and simple pickup-ready product data.",
-    image: IMG.v4,
+    image: IMG.breeze,
     rating: 4.3,
     reviewCount: 91,
     reviews: [],
@@ -986,7 +1052,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     barcode: "810000100055",
     description:
       "Fume Infinity disposable placeholder with peach ice flavor notes and retail shelf copy for the disposable section.",
-    image: IMG.s1,
+    image: IMG.fume,
     rating: 4.4,
     reviewCount: 134,
     reviews: [],
