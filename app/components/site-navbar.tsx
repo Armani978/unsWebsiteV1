@@ -22,7 +22,6 @@ import { useStore } from "../context/StoreContext";
 import { GridScanOverlay } from "./thegridcn/grid-scan-overlay";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Switch } from "./ui/switch";
 import { cn } from "./ui/utils";
 
 const NAV = [
@@ -204,38 +203,24 @@ function SmokeCategoryIcon({ icon }: { icon: SmokeIcon }) {
 
 export function SiteNavbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [yellowMode, setYellowMode] = useState(true);
   const { cartCount } = useStore();
   const pathname = usePathname();
   const closeMenu = () => setMenuOpen(false);
+  const isStorefront =
+    pathname.startsWith("/store") || pathname.startsWith("/shop");
 
   useEffect(() => {
-    const savedMode = window.localStorage.getItem("shop-theme");
-    setYellowMode(savedMode !== "stealth");
+    if (!menuOpen) return;
 
-    const syncTheme = (event: Event) => {
-      const customEvent = event as CustomEvent<{ theme?: string }>;
-      const nextTheme =
-        customEvent.detail?.theme ?? window.localStorage.getItem("shop-theme");
-      setYellowMode(nextTheme !== "stealth");
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
     };
 
-    window.addEventListener("shop-theme-change", syncTheme);
-    window.addEventListener("storage", syncTheme);
-    return () => {
-      window.removeEventListener("shop-theme-change", syncTheme);
-      window.removeEventListener("storage", syncTheme);
-    };
-  }, []);
-
-  const updateTheme = (checked: boolean) => {
-    const theme = checked ? "yellow" : "stealth";
-    setYellowMode(checked);
-    window.localStorage.setItem("shop-theme", theme);
-    window.dispatchEvent(
-      new CustomEvent("shop-theme-change", { detail: { theme } }),
-    );
-  };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
 
   if (pathname.startsWith("/employee/") && pathname !== "/employee/login") {
     return null;
@@ -246,10 +231,20 @@ export function SiteNavbar() {
       <header className="dark sticky top-0 z-50 flex h-[72px] shrink-0 items-center justify-center px-3 text-white">
         <nav
           aria-label="Site navigation"
-          className="flex h-[54px] w-full max-w-6xl items-center gap-3 rounded-2xl border border-white/[0.08] bg-[#131514]/90 px-3 shadow-[0_12px_40px_rgba(0,0,0,0.34)] backdrop-blur-xl sm:px-4"
+          className={cn(
+            "flex h-[54px] w-full max-w-6xl items-center gap-3 rounded-2xl border px-3 backdrop-blur-xl sm:px-4",
+            isStorefront
+              ? "border-stone-200 bg-[#fbfaf7]/92 text-stone-950 shadow-[0_12px_40px_rgba(28,25,23,0.12)]"
+              : "border-white/[0.08] bg-[#131514]/90 text-white shadow-[0_12px_40px_rgba(0,0,0,0.34)]",
+          )}
         >
           <Link href="/shop" className="flex min-w-0 items-center gap-2">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-yellow-300">
+            <span
+              className={cn(
+                "flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full",
+                isStorefront ? "bg-[#d7bd7a]" : "bg-yellow-300",
+              )}
+            >
               <Image
                 src="/up-n-smoke-logo.png"
                 alt="Up N Smoke Vapors"
@@ -263,62 +258,77 @@ export function SiteNavbar() {
             </span>
           </Link>
 
-          <div className="ml-auto hidden items-center gap-5 text-xs font-medium text-zinc-400 sm:flex">
-            <Link href="/shop" className="transition-colors hover:text-white">
+          <div
+            className={cn(
+              "ml-auto hidden items-center gap-5 text-xs font-semibold sm:flex",
+              isStorefront ? "text-stone-500" : "text-zinc-400",
+            )}
+          >
+            <Link
+              href="/shop"
+              className={cn(
+                "transition-colors",
+                isStorefront ? "hover:text-stone-950" : "hover:text-white",
+              )}
+            >
               Shop
             </Link>
-            <Link href="/cart" className="transition-colors hover:text-white">
+            <Link
+              href="/cart"
+              className={cn(
+                "transition-colors",
+                isStorefront ? "hover:text-stone-950" : "hover:text-white",
+              )}
+            >
               Cart
             </Link>
             <Link
               href="/auth/login"
-              className="transition-colors hover:text-white"
+              className={cn(
+                "transition-colors",
+                isStorefront ? "hover:text-stone-950" : "hover:text-white",
+              )}
             >
               Login
             </Link>
             <Link
               href="/employee/login"
-              className="transition-colors hover:text-white"
+              className={cn(
+                "transition-colors",
+                isStorefront ? "hover:text-stone-950" : "hover:text-white",
+              )}
             >
               Employee Login
             </Link>
           </div>
 
-          {(pathname.startsWith("/store") || pathname.startsWith("/shop")) && (
-            <>
-              <div className="hidden items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.04] px-2 py-1.5 text-[10px] font-black uppercase text-zinc-300 md:flex">
-                <span>{yellowMode ? "Yellow" : "Stealth"}</span>
-                <Switch
-                  checked={yellowMode}
-                  onCheckedChange={updateTheme}
-                  aria-label="Toggle customer shop theme"
-                  className="data-[state=checked]:bg-yellow-300 data-[state=unchecked]:bg-zinc-700"
-                />
-              </div>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() =>
-                  window.dispatchEvent(new Event("shop-cart-open"))
-                }
-                className="relative h-8 gap-1.5 rounded-md border-white/[0.08] bg-white/[0.04] px-2.5 text-xs font-black uppercase text-zinc-200 hover:bg-white/10 hover:text-white"
-              >
-                <ShoppingCart className="h-3.5 w-3.5" />
-                <span className="hidden lg:inline">Cart</span>
-                {cartCount > 0 && (
-                  <Badge className="-right-2 -top-2 absolute flex h-5 w-5 items-center justify-center border-yellow-300 bg-yellow-300 p-0 text-[10px] text-black">
-                    {cartCount}
-                  </Badge>
-                )}
-              </Button>
-            </>
+          {isStorefront && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => window.dispatchEvent(new Event("shop-cart-open"))}
+              className="relative h-8 gap-1.5 rounded-md border-stone-300 bg-white px-2.5 text-xs font-black uppercase text-stone-950 hover:bg-[#f1eee7]"
+            >
+              <ShoppingCart className="h-3.5 w-3.5" />
+              <span className="hidden lg:inline">Cart</span>
+              {cartCount > 0 && (
+                <Badge className="-right-2 -top-2 absolute flex h-5 w-5 items-center justify-center border-[#d7bd7a] bg-[#d7bd7a] p-0 text-[10px] text-black">
+                  {cartCount}
+                </Badge>
+              )}
+            </Button>
           )}
 
           <button
             type="button"
             aria-label="Open command navigation"
-            className="hidden h-8 w-8 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:flex"
+            className={cn(
+              "hidden h-8 w-8 items-center justify-center rounded-md border transition-colors sm:flex",
+              isStorefront
+                ? "border-stone-300 bg-white text-stone-700 hover:bg-[#f1eee7] hover:text-stone-950"
+                : "border-white/[0.08] bg-white/[0.04] text-zinc-300 hover:bg-white/10 hover:text-white",
+            )}
             onClick={() => setMenuOpen(true)}
           >
             <Command className="h-4 w-4" />
@@ -327,7 +337,12 @@ export function SiteNavbar() {
             type="button"
             aria-expanded={menuOpen}
             aria-label="Open site menu"
-            className="flex h-8 w-8 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] text-zinc-300 transition-colors hover:bg-white/10 hover:text-white"
+            className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-md border transition-colors",
+              isStorefront
+                ? "border-stone-300 bg-white text-stone-700 hover:bg-[#f1eee7] hover:text-stone-950"
+                : "border-white/[0.08] bg-white/[0.04] text-zinc-300 hover:bg-white/10 hover:text-white",
+            )}
             onClick={() => setMenuOpen(true)}
           >
             <Menu className="h-4 w-4" />
