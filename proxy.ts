@@ -1,15 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 const employeeRoles = new Set(["owner", "manager", "inventory", "employee"]);
-const customerOnlyPaths = [
-  "/account",
-  "/orders",
-  "/favorites",
-  "/pickup",
-  "/reviews",
-  "/checkout",
-  "/store/checkout",
-];
+const customerOnlyPaths = ["/account", "/orders", "/favorites", "/reviews"];
 
 function isCustomerOnlyPath(pathname: string) {
   return customerOnlyPaths.some(
@@ -44,9 +36,6 @@ export const config = {
     "/account/:path*",
     "/orders/:path*",
     "/favorites/:path*",
-    "/pickup/:path*",
     "/reviews/:path*",
-    "/checkout/:path*",
-    "/store/checkout/:path*",
   ],
 };

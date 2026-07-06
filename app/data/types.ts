@@ -69,6 +69,33 @@ export interface Sale {
   timestamp: string;
   cashier: string;
   customerName?: string;
+  pickupOrderId?: string;
+}
+
+export type PickupStatus =
+  | "pending"
+  | "accepted"
+  | "preparing"
+  | "ready"
+  | "arrived"
+  | "completed"
+  | "cancelled";
+
+export interface PickupOrder {
+  id: string;
+  items: SaleItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  paymentMethod: "cash" | "card";
+  status: PickupStatus;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  pickupWindow: string;
+  notes?: string;
+  createdAt: string;
+  estimatedReadyAt: string;
 }
 
 export interface Customer {

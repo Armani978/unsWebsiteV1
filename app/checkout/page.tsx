@@ -1,8 +1,5 @@
 import CheckoutPage from "../components/store/CheckoutPage";
-import { requireCustomer } from "../lib/auth/session";
 
-export default async function Checkout() {
-  await requireCustomer();
-
+export default function Checkout() {
   return <CheckoutPage />;
 }
