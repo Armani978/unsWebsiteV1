@@ -10,6 +10,8 @@ import {
   Crown,
   Gift,
   Package,
+  PackageCheck,
+  Receipt,
   ScanBarcode,
   Search,
   ShoppingCart,
@@ -97,8 +99,25 @@ function PanelHeader({
   );
 }
 
+function EmptyPanelMessage({
+  icon: Icon,
+  text,
+}: {
+  icon: typeof AlertTriangle;
+  text: string;
+}) {
+  return (
+    <div className="flex min-h-44 flex-col items-center justify-center rounded-md border border-dashed border-white/10 bg-black/20 p-4 text-center">
+      <Icon className="mb-3 h-8 w-8 text-zinc-600" />
+      <p className="max-w-xs text-sm font-medium leading-6 text-zinc-500">
+        {text}
+      </p>
+    </div>
+  );
+}
+
 export default function Dashboard() {
-  const { customers, products, sales } = useStore();
+  const { customers, pickupOrders, products, sales } = useStore();
 
   const dashboardData = useMemo(() => {
     const lowStockProducts = products
@@ -126,6 +145,9 @@ export default function Dashboard() {
     }
 
     return {
+      activePickups: pickupOrders.filter(
+        (order) => order.status !== "completed" && order.status !== "cancelled",
+      ).length,
       lowStockProducts,
       outOfStockCount: products.filter((product) => product.stock === 0).length,
       revenue: sales.reduce((total, sale) => total + sale.total, 0),
@@ -133,7 +155,7 @@ export default function Dashboard() {
         .sort((a, b) => b.units - a.units)
         .slice(0, 5),
     };
-  }, [products, sales]);
+  }, [pickupOrders, products, sales]);
 
   const stats = [
     {
@@ -150,7 +172,7 @@ export default function Dashboard() {
       accent: "violet" as const,
       icon: ShoppingCart,
       label: "Orders",
-      note: "Transactions recorded",
+      note: `${dashboardData.activePickups} active pickups`,
       value: sales.length.toString(),
     },
     {
@@ -170,7 +192,7 @@ export default function Dashboard() {
   ];
 
   const chartData = REVENUE_DATA.slice(-7);
-  const chartMax = Math.max(...chartData.map((day) => day.revenue));
+  const chartMax = Math.max(...chartData.map((day) => day.revenue), 1);
   const chartPoints = chartData
     .map((day, index) => {
       const x = 5 + index * 15;
@@ -232,7 +254,7 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <section className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+        <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {stats.map((stat) => {
             const style = METRIC_STYLES[stat.accent];
             return (
@@ -349,68 +371,85 @@ export default function Dashboard() {
               }
             />
             <div className="space-y-1 p-3">
-              {dashboardData.topProducts.map((item, index) => {
-                const product = products.find(
-                  (candidate) => candidate.id === item.productId,
-                );
-                return (
-                  <div
-                    key={item.productId}
-                    className="group flex items-center gap-3 rounded-md px-2 py-2 transition-colors hover:bg-white/[0.04]"
-                  >
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime-300 text-[10px] font-black text-black">
-                      {index + 1}
-                    </span>
-                    {product && (
-                      <ProductThumb image={product.image} name={product.name} />
-                    )}
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold text-zinc-100">
-                        {item.name}
-                      </p>
-                      <p className="text-xs text-zinc-500">
-                        {item.units} units sold
+              {dashboardData.topProducts.length > 0 ? (
+                dashboardData.topProducts.map((item, index) => {
+                  const product = products.find(
+                    (candidate) => candidate.id === item.productId,
+                  );
+                  return (
+                    <div
+                      key={item.productId}
+                      className="group flex items-center gap-3 rounded-md px-2 py-2 transition-colors hover:bg-white/[0.04]"
+                    >
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime-300 text-[10px] font-black text-black">
+                        {index + 1}
+                      </span>
+                      {product && (
+                        <ProductThumb
+                          image={product.image}
+                          name={product.name}
+                        />
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold text-zinc-100">
+                          {item.name}
+                        </p>
+                        <p className="text-xs text-zinc-500">
+                          {item.units} units sold
+                        </p>
+                      </div>
+                      <p className="text-right text-sm font-bold text-lime-300">
+                        ${item.revenue.toFixed(0)}
                       </p>
                     </div>
-                    <p className="text-right text-sm font-bold text-lime-300">
-                      ${item.revenue.toFixed(0)}
-                    </p>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <EmptyPanelMessage
+                  icon={ShoppingCart}
+                  text="No ranked products yet. Completed sales will populate this list."
+                />
+              )}
             </div>
           </GlowContainer>
 
           <GlowContainer accent="pink" className="min-h-[350px]" hover={false}>
             <PanelHeader icon={AlertTriangle} title="Low Stock Alerts" />
             <div className="space-y-1 p-3">
-              {dashboardData.lowStockProducts.map((product) => (
-                <Link
-                  key={product.id}
-                  href="/employee/inventory"
-                  className="flex items-center gap-3 rounded-md px-2 py-2 transition-colors hover:bg-white/[0.04]"
-                >
-                  <ProductThumb image={product.image} name={product.name} />
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-zinc-100">
-                      {product.name}
-                    </p>
-                    <p className="text-xs text-zinc-500">
-                      {CATEGORY_LABELS[product.category]}
-                    </p>
-                  </div>
-                  <Badge
-                    variant="outline"
-                    className={
-                      product.stock === 0
-                        ? "border-pink-400/25 bg-pink-400/10 text-pink-300"
-                        : "border-amber-400/25 bg-amber-400/10 text-amber-300"
-                    }
+              {dashboardData.lowStockProducts.length > 0 ? (
+                dashboardData.lowStockProducts.map((product) => (
+                  <Link
+                    key={product.id}
+                    href="/employee/inventory"
+                    className="flex items-center gap-3 rounded-md px-2 py-2 transition-colors hover:bg-white/[0.04]"
                   >
-                    {product.stock === 0 ? "Out" : `${product.stock} left`}
-                  </Badge>
-                </Link>
-              ))}
+                    <ProductThumb image={product.image} name={product.name} />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-semibold text-zinc-100">
+                        {product.name}
+                      </p>
+                      <p className="text-xs text-zinc-500">
+                        {CATEGORY_LABELS[product.category]}
+                      </p>
+                    </div>
+                    <Badge
+                      variant="outline"
+                      className={
+                        product.stock === 0
+                          ? "border-pink-400/25 bg-pink-400/10 text-pink-300"
+                          : "border-amber-400/25 bg-amber-400/10 text-amber-300"
+                      }
+                    >
+                      {product.stock === 0 ? "Out" : `${product.stock} left`}
+                    </Badge>
+                  </Link>
+                ))
+              ) : (
+                <EmptyPanelMessage
+                  icon={Package}
+                  text="Inventory is healthy. Low-stock alerts will appear here."
+                />
+              )}
               <Button
                 asChild
                 className="mt-3 w-full bg-pink-500 text-white hover:bg-pink-400"
@@ -431,7 +470,7 @@ export default function Dashboard() {
               <h2 className={PANEL_TITLE}>POS Quick Start</h2>
               <Sparkles className="h-4 w-4 text-amber-300" />
             </div>
-            <div className="mt-4 grid grid-cols-3 gap-2">
+            <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
               {[
                 {
                   href: "/employee/pos",
@@ -444,6 +483,12 @@ export default function Dashboard() {
                   icon: ScanBarcode,
                   label: "Scan item",
                   style: "bg-violet-500 text-white hover:bg-violet-400",
+                },
+                {
+                  href: "/employee/pickups",
+                  icon: PackageCheck,
+                  label: "Pickups",
+                  style: "bg-cyan-300 text-black hover:bg-cyan-200",
                 },
                 {
                   href: "/employee/inventory",
@@ -515,26 +560,35 @@ export default function Dashboard() {
               </Link>
             }
           />
-          <div className="grid md:grid-cols-2 xl:grid-cols-4">
-            {sales.slice(0, 4).map((sale) => (
-              <div
-                key={sale.id}
-                className="flex items-center justify-between gap-3 border-b border-white/10 p-4 last:border-b-0 md:border-r xl:border-b-0"
-              >
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-zinc-100">
-                    {sale.customerName || "Walk-in customer"}
-                  </p>
-                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">
-                    {sale.id} · {sale.paymentMethod}
+          {sales.length > 0 ? (
+            <div className="grid md:grid-cols-2 xl:grid-cols-4">
+              {sales.slice(0, 4).map((sale) => (
+                <div
+                  key={sale.id}
+                  className="flex items-center justify-between gap-3 border-b border-white/10 p-4 last:border-b-0 md:border-r xl:border-b-0"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-zinc-100">
+                      {sale.customerName || "Walk-in customer"}
+                    </p>
+                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">
+                      {sale.id} · {sale.paymentMethod}
+                    </p>
+                  </div>
+                  <p className="shrink-0 text-sm font-black text-cyan-300">
+                    ${sale.total.toFixed(2)}
                   </p>
                 </div>
-                <p className="shrink-0 text-sm font-black text-cyan-300">
-                  ${sale.total.toFixed(2)}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="p-3">
+              <EmptyPanelMessage
+                icon={Receipt}
+                text="No transactions recorded yet. New POS sales will show here."
+              />
+            </div>
+          )}
         </GlowContainer>
       </div>
     </div>
